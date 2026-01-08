@@ -1,0 +1,136 @@
+/* FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #07152E;
+    color: white;
+}
+
+/* HEADER */
+header {
+    background-color: #0A1C3D;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 {
+    margin: 0;
+    color: #d8e5ff;
+}
+
+nav a {
+    color: #c7d7ff;
+    text-decoration: none;
+    margin-left: 18px;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #79b4ff;
+    text-decoration: underline;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #0e264f;
+    border-bottom: 2px solid #133569;
+    border-radius: 0 0 15px 15px;
+}
+
+.hero h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+/* STYLE BUTTONS */
+button {
+    padding: 10px 18px;
+    background-color: #4584ff;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+button:hover {
+    background-color: #7bb4ff;
+}
+
+/* MAIN SECTION */
+.main-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 25px;
+}
+
+/* CARD */
+.card {
+    width: 330px;
+    padding: 18px;
+    background-color: #0f2247;
+    border-radius: 12px;
+    border: 1px solid #17346d;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #83baff;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 8px;
+    background-color: #102146;
+    color: white;
+    border: 1px solid #699cff;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+input::placeholder {
+    color: #c9d9ff;
+}
+
+/* PROGRESS BAR */
+.progress-container {
+    width: 100%;
+    height: 22px;
+    background-color: #1a356b;
+    border-radius: 10px;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(45deg, #00ff9e, #00d47C);
+    border-radius: 10px;
+    transition: width 0.5s;
+}
+
+#progressPercent {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 6px;
+    color: #74ffc6;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 40px;
+    padding: 10px;
+    background-color: #0A1C3D;
+    color: #bcd3ff;
+    text-align: center;
+}

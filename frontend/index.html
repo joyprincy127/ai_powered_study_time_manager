@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Study Time Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="logo-area">
+        <h2>AI Study Time Manager</h2>
+    </div>
+
+    <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#">Planner</a>
+        <a href="#">Analytics</a>
+        <a href="#">Profile</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Plan Your Study Time Smartly</h1>
+        <p id="motivationText"></p>
+        <button class="btn-glow" onclick="showIntro()">✨ How it works?</button>
+    </div>
+    <div class="hero-image">
+        
+
+    </div>
+</section>
+
+<main class="main-container">
+
+    <!-- INPUT CARD -->
+    <section class="card input-card">
+        <h3>Enter Your Details</h3>
+
+        <label for="hoursInput">Total free hours today:</label>
+        <input type="number" id="hoursInput" min="1" max="12" placeholder="e.g. 4">
+
+        <label for="daysInput">Days left for exam:</label>
+        <input type="number" id="daysInput" min="0" max="30" placeholder="e.g. 3">
+
+        <label for="focusInput">Main focus area (optional):</label>
+        <input type="text" id="focusInput" placeholder="e.g. math, coding, theory">
+
+        <button onclick="generatePlan()">Generate Study Plan</button>
+
+        <p class="hint">The AI logic will allocate time for Math, Programming & Theory based on urgency.</p>
+    </section>
+
+    <!-- PLAN OUTPUT CARD -->
+    <section class="card plan-card">
+        <h3>Today's AI-Generated Plan</h3>
+        <p id="urgencyText">Fill the details and click Generate.</p>
+
+        <ul id="planList">
+            <!-- JS will inject study plan here -->
+        </ul>
+    </section>
+
+    <!-- SUMMARY / PROGRESS CARD -->
+    <section class="card summary-card">
+        <h3>Preparation Overview</h3>
+        <p><b>Estimated Preparation Score:</b></p>
+
+        <div class="progress-container">
+            <div id="progressBar"></div>
+        </div>
+        <p id="progressPercent">0%</p>
+
+        <p id="aiMessage" class="ai-msg">Your smart AI tip will appear here.</p>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2025 AI-Powered Study Time Manager | Mini Project</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
