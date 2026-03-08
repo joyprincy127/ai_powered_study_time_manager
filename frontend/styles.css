@@ -1,11 +1,16 @@
 /* FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+/* BODY */
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background-color: #07152E;
     color: white;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* HEADER */
@@ -22,10 +27,12 @@ header h2 {
     color: #d8e5ff;
 }
 
+/* NAVBAR */
 nav a {
     color: #c7d7ff;
     text-decoration: none;
     margin-left: 18px;
+    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -34,7 +41,7 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero {
     text-align: center;
     padding: 40px 20px;
@@ -48,7 +55,7 @@ nav a:hover {
     margin-bottom: 6px;
 }
 
-/* STYLE BUTTONS */
+/* BUTTONS */
 button {
     padding: 10px 18px;
     background-color: #4584ff;
@@ -73,7 +80,23 @@ button:hover {
     padding: 25px;
 }
 
-/* CARD */
+/* CENTER CONTAINER (for Planner, Analytics, Profile) */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 40px;
+}
+
+/* PAGE CONTROL */
+.page {
+    flex: 1;
+    display: none;
+}
+
+/* CARD DESIGN */
 .card {
     width: 330px;
     padding: 18px;
@@ -103,6 +126,11 @@ input::placeholder {
     color: #c9d9ff;
 }
 
+/* PLAN LIST */
+#planList li {
+    margin-bottom: 8px;
+}
+
 /* PROGRESS BAR */
 .progress-container {
     width: 100%;
@@ -128,7 +156,7 @@ input::placeholder {
 
 /* FOOTER */
 footer {
-    margin-top: 40px;
+    margin-top: auto;
     padding: 10px;
     background-color: #0A1C3D;
     color: #bcd3ff;

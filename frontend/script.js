@@ -1,156 +1,198 @@
-// small welcome popup
-function showIntro() {
-    alert("This AI-inspired tool helps you divide your study hours smartly based on exam urgency.");
-}
+function showPage(pageId){
 
-// random motivational messages
-var motivationMessages = [
-    "Small study sessions every day create big results ",
-    "Your future self will thank you for the effort you put in today ",
-    "Don’t study harder, study smarter ",
-    "Focus on one thing at a time. You’ve got this! "
-];
+var pages=document.querySelectorAll(".page");
 
-// make sure DOM is loaded before accessing elements
-document.addEventListener("DOMContentLoaded", function () {
-    var randomIndex = Math.floor(Math.random() * motivationMessages.length);
-    var msgElement = document.getElementById("motivationText");
-    if (msgElement) {
-        msgElement.innerText = motivationMessages[randomIndex];
-    }
+pages.forEach(function(page){
+page.style.display="none";
 });
 
-function generatePlan() {
-    var hours = parseFloat(document.getElementById("hoursInput").value);
-    var daysLeft = parseInt(document.getElementById("daysInput").value);
-    var focus = document.getElementById("focusInput").value;
-    focus = focus.trim().toLowerCase();
+document.getElementById(pageId).style.display="block";
 
-    if (isNaN(hours) || isNaN(daysLeft) || hours <= 0) {
-        alert("Please enter valid values for hours and days.");
-        return;
-    }
-
-    // Determine urgency level
-    var urgencyText = "";
-    if (daysLeft <= 1) {
-        urgencyText = "High urgency: Exam is very close!";
-    } else if (daysLeft <= 5) {
-        urgencyText = " Medium urgency: Exam is coming soon.";
-    } else {
-        urgencyText = " Low urgency: You still have enough days.";
-    }
-    document.getElementById("urgencyText").innerText = urgencyText;
-
-    // Subjects with base weights (Math, Programming, Theory)
-    var mathWeight, codeWeight, theoryWeight;
-
-    if (daysLeft <= 1) {
-        // last minute -> focus more on tough subjects
-        mathWeight = 0.45;
-        codeWeight = 0.35;
-        theoryWeight = 0.20;
-    } else if (daysLeft <= 5) {
-        mathWeight = 0.40;
-        codeWeight = 0.35;
-        theoryWeight = 0.25;
-    } else {
-        // long time before exam -> balance, more reading
-        mathWeight = 0.35;
-        codeWeight = 0.30;
-        theoryWeight = 0.35;
-    }
-
-    // Adjust weights slightly based on focus keyword
-    if (focus.indexOf("math") !== -1 || focus.indexOf("quant") !== -1) {
-        mathWeight += 0.10;
-        codeWeight -= 0.05;
-        theoryWeight -= 0.05;
-    } else if (
-        focus.indexOf("code") !== -1 ||
-        focus.indexOf("program") !== -1 ||
-        focus.indexOf("coding") !== -1
-    ) {
-        codeWeight += 0.10;
-        mathWeight -= 0.05;
-        theoryWeight -= 0.05;
-    } else if (
-        focus.indexOf("theory") !== -1 ||
-        focus.indexOf("reading") !== -1
-    ) {
-        theoryWeight += 0.10;
-        mathWeight -= 0.05;
-        codeWeight -= 0.05;
-    }
-
-    // Normalize weights to sum to 1
-    var totalWeight = mathWeight + codeWeight + theoryWeight;
-    mathWeight = mathWeight / totalWeight;
-    codeWeight = codeWeight / totalWeight;
-    theoryWeight = theoryWeight / totalWeight;
-
-    // calculate hours for each subject
-    var mathHours = roundToHalf(hours * mathWeight);
-    var codeHours = roundToHalf(hours * codeWeight);
-    var theoryHours = roundToHalf(hours * theoryWeight);
-
-    // Inject plan into list
-    var planList = document.getElementById("planList");
-    planList.innerHTML = ""; // clear previous
-
-    var items = [
-        "Math / Quantitative: " + mathHours + " hour(s)",
-        "Programming / Coding: " + codeHours + " hour(s)",
-        "Theory / Reading: " + theoryHours + " hour(s)"
-    ];
-
-    for (var i = 0; i < items.length; i++) {
-        var li = document.createElement("li");
-        li.textContent = items[i];
-        planList.appendChild(li);
-    }
-
-    // Estimate preparation score (fake AI score)
-    var prepScore = calculatePrepScore(hours, daysLeft);
-    document.getElementById("progressBar").style.width = prepScore + "%";
-    document.getElementById("progressPercent").innerText = prepScore + "%";
-
-    // AI-style message
-    var aiMessage = "";
-    if (prepScore < 40) {
-        aiMessage = "Your preparation is starting. Try to add at least 1–2 more hours today if possible.";
-    } else if (prepScore < 70) {
-        aiMessage = "Good progress! Stay consistent and revise key topics daily.";
-    } else {
-        aiMessage = "Great job! Focus on revision, past papers and quick recap sessions.";
-    }
-    document.getElementById("aiMessage").innerText = aiMessage;
+if(pageId==="profile"){
+loadProfile();
 }
 
-// helper: round number to nearest 0.5
-function roundToHalf(num) {
-    return Math.round(num * 2) / 2;
+if(pageId==="analytics"){
+showAnalyticsMotivation();
 }
 
-// helper: generate a simple AI-like preparation score
-function calculatePrepScore(hours, daysLeft) {
-    // basic idea: more hours & fewer days -> higher urgency and score
-    var base = hours * 10;
+}
 
-    if (daysLeft <= 1) {
-        base += 20;
-    } else if (daysLeft <= 5) {
-        base += 10;
-    } else {
-        base += 5;
-    }
+showPage("home");
 
-    if (base > 100) {
-        base = 100;
-    }
-    if (base < 0) {
-        base = 0;
-    }
 
-    return Math.round(base);
+
+function showIntro(){
+
+alert("This AI inspired tool helps you generate a smart study plan based on your available study hours.");
+
+}
+
+
+
+/* HOME MOTIVATION MESSAGES */
+
+var motivationMessages=[
+
+"Small study sessions every day create big results",
+"Your future self will thank you for today's effort",
+"Study smarter not harder",
+"Focus on progress not perfection"
+
+];
+
+document.addEventListener("DOMContentLoaded",function(){
+
+var randomIndex=Math.floor(Math.random()*motivationMessages.length);
+
+var msg=document.getElementById("motivationText");
+
+if(msg){
+msg.innerText=motivationMessages[randomIndex];
+}
+
+});
+
+
+
+/* ANALYTICS MOTIVATION MESSAGES */
+
+var analyticsMessages=[
+
+"Great job! Keep pushing your limits.",
+"Consistency is the key to mastering any subject.",
+"Small daily progress leads to big exam success.",
+"Stay focused and keep improving your preparation."
+
+];
+
+function showAnalyticsMotivation(){
+
+var randomIndex=Math.floor(Math.random()*analyticsMessages.length);
+
+var msg=document.getElementById("analyticsMotivation");
+
+if(msg){
+msg.innerText=analyticsMessages[randomIndex];
+}
+
+}
+
+
+
+/* GENERATE STUDY PLAN */
+
+function generatePlan(){
+
+var hours=parseFloat(document.getElementById("hoursInput").value);
+
+var subjectsText=document.getElementById("subjectsInput").value;
+
+if(!hours || !subjectsText){
+
+alert("Please enter hours and subjects");
+
+return;
+
+}
+
+var subjects=subjectsText.split(",");
+
+var planList=document.getElementById("planList");
+
+planList.innerHTML="";
+
+var hoursPerSubject=Math.round((hours/subjects.length)*2)/2;
+
+subjects.forEach(function(subject){
+
+var li=document.createElement("li");
+
+var checkbox=document.createElement("input");
+
+checkbox.type="checkbox";
+
+li.appendChild(checkbox);
+
+li.appendChild(document.createTextNode(" "+subject.trim()+" - "+hoursPerSubject+" hours"));
+
+planList.appendChild(li);
+
+});
+
+}
+
+
+
+/* CALCULATE ANALYTICS */
+
+function calculateAnalytics(){
+
+var checkboxes=document.querySelectorAll("#planList input");
+
+if(checkboxes.length===0){
+
+document.getElementById("analyticsText").innerText="Generate a study plan first.";
+
+document.getElementById("progressBar").style.width="0%";
+document.getElementById("progressPercent").innerText="0%";
+
+return;
+
+}
+
+var completed=0;
+
+checkboxes.forEach(function(cb){
+
+if(cb.checked) completed++;
+
+});
+
+var percent=Math.round((completed/checkboxes.length)*100);
+
+document.getElementById("analyticsText").innerText="Your Study Completion: "+percent+"%";
+
+/* update progress bar */
+document.getElementById("progressBar").style.width=percent+"%";
+
+/* update percent text */
+document.getElementById("progressPercent").innerText=percent+"%";
+
+}
+
+
+
+/* PROFILE SAVE */
+
+function saveProfile(){
+
+var name=document.getElementById("nameInput").value;
+
+var standard=document.getElementById("standardInput").value;
+
+localStorage.setItem("studentName",name);
+localStorage.setItem("studentStandard",standard);
+
+alert("Profile saved!");
+
+}
+
+
+
+/* PROFILE LOAD */
+
+function loadProfile(){
+
+var name=localStorage.getItem("studentName");
+
+var standard=localStorage.getItem("studentStandard");
+
+if(name){
+
+document.getElementById("profileDisplay").innerText=
+"Name: "+name+" | Standard: "+standard;
+
+}
+
 }
