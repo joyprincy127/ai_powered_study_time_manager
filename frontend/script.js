@@ -80,45 +80,61 @@ msg.innerText=analyticsMessages[randomIndex];
 
 
 
-/* GENERATE STUDY PLAN */
+/* GENERATE STUDY PLAN (FULL STACK VERSION) */
 
-function generatePlan(){
+async function generatePlan(){
 
-var hours=parseFloat(document.getElementById("hoursInput").value);
+try{
 
-var subjectsText=document.getElementById("subjectsInput").value;
+var hours=document.getElementById("hoursInput").value;
+var subjects=document.getElementById("subjectsInput").value;
 
-if(!hours || !subjectsText){
-
+if(!hours || !subjects){
 alert("Please enter hours and subjects");
-
 return;
-
 }
 
-var subjects=subjectsText.split(",");
+const response = await fetch("http://localhost:3000/generate-plan",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+hours:parseFloat(hours),
+subjects:subjects
+})
+});
+
+const data = await response.json();
+
+if(data.error){
+alert(data.error);
+return;
+}
 
 var planList=document.getElementById("planList");
-
 planList.innerHTML="";
 
-var hoursPerSubject=Math.round((hours/subjects.length)*2)/2;
-
-subjects.forEach(function(subject){
+data.forEach(function(item){
 
 var li=document.createElement("li");
 
 var checkbox=document.createElement("input");
-
 checkbox.type="checkbox";
 
 li.appendChild(checkbox);
-
-li.appendChild(document.createTextNode(" "+subject.trim()+" - "+hoursPerSubject+" hours"));
+li.appendChild(document.createTextNode(" "+item.subject+" - "+item.time+" hours"));
 
 planList.appendChild(li);
 
 });
+
+}catch(error){
+
+console.log(error);
+alert("Backend connection error. Make sure server is running.");
+
+}
 
 }
 
@@ -153,10 +169,7 @@ var percent=Math.round((completed/checkboxes.length)*100);
 
 document.getElementById("analyticsText").innerText="Your Study Completion: "+percent+"%";
 
-/* update progress bar */
 document.getElementById("progressBar").style.width=percent+"%";
-
-/* update percent text */
 document.getElementById("progressPercent").innerText=percent+"%";
 
 }
@@ -168,7 +181,6 @@ document.getElementById("progressPercent").innerText=percent+"%";
 function saveProfile(){
 
 var name=document.getElementById("nameInput").value;
-
 var standard=document.getElementById("standardInput").value;
 
 localStorage.setItem("studentName",name);
@@ -185,7 +197,6 @@ alert("Profile saved!");
 function loadProfile(){
 
 var name=localStorage.getItem("studentName");
-
 var standard=localStorage.getItem("studentStandard");
 
 if(name){

@@ -2,43 +2,51 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-let studyRecords = [];
 
+// Test route to check backend
 app.get("/", (req, res) => {
     res.send("AI Study Time Manager Backend is running");
 });
 
+
+// API to generate study plan
 app.post("/generate-plan", (req, res) => {
-    const { hours, days, focus } = req.body;
 
-    let urgency =
-        days <= 2 ? "High" :
-        days <= 5 ? "Medium" : "Low";
+    const { hours, subjects } = req.body;
 
-    let plan = {
-        math: (hours * 0.4).toFixed(1),
-        coding: (hours * 0.35).toFixed(1),
-        theory: (hours * 0.25).toFixed(1)
-    };
+    // Log request in terminal (for demo)
+    console.log("Request received from frontend");
+    console.log("Hours:", hours);
+    console.log("Subjects:", subjects);
 
-    studyRecords.push({ hours, days, focus, urgency, plan });
+    if (!hours || !subjects) {
+        return res.json({ error: "Invalid data" });
+    }
 
-    res.json({
-        message: "Study plan generated successfully",
-        urgency,
-        plan
+    const subjectsArray = subjects.split(",");
+
+    const hoursPerSubject = Math.round((hours / subjectsArray.length) * 2) / 2;
+
+    let plan = [];
+
+    subjectsArray.forEach(sub => {
+        plan.push({
+            subject: sub.trim(),
+            time: hoursPerSubject
+        });
     });
+
+    // Send result back to frontend
+    res.json(plan);
 });
 
-app.get("/plans", (req, res) => {
-    res.json(studyRecords);
-});
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+// Start server
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
 });
